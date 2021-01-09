@@ -3,36 +3,45 @@ package com.mycompany;
 import com.mycompany.listimplementation.MyLinkedList;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class MainClass {
     public static void main(String[] args) {
-        MyLinkedList myLinkedList = new MyLinkedList();
-        LinkedList linkedList = new LinkedList();
+        MyLinkedList<Circle> myLinkedList = new MyLinkedList();
+        LinkedList<Circle> linkedList = new LinkedList();
 
-
-        //myLinkedList.add(0, 2);
-        //myLinkedList.add(1,1);
-
-        for (int i = 0; i < 20; i++) {
-            myLinkedList.add(i+1);
-            linkedList.add(i+1);
-        }
-        System.out.println(myLinkedList.get(myLinkedList.size() - 1));
-        System.out.println(myLinkedList.indexOf(19));
-        linkedList.add(19,0);
-        myLinkedList.add(19,0);
-        linkedList.add(0,0);
-        myLinkedList.add(0,0);
-        Iterator i = myLinkedList.iterator();
-        while (i.hasNext()) {
-            System.out.println(i.next());
+        for (int i = 0; i < 10000; i++) {
+            linkedList.add(new Circle());
         }
 
-        System.out.println(linkedList);
-        System.out.println(myLinkedList);
+        for (int i = 0; i < 10000; i++) {
+            myLinkedList.add(new Circle());
+        }
+
+        for (int i = 0; i < 10000; i++) {
+            linkedList.get(i);
+        }
+
+
+        for (int i = 0; i < 10000; i++) {
+            myLinkedList.get(i);
+        }
+
+        double startLL = System.nanoTime();
+        for (int i = 0; i < 10000; i++)
+            linkedList.remove();
+        double endLL = System.nanoTime();
+        double totalLL = (endLL - startLL) / 1_000_000_000;
+        double startMLL = System.nanoTime();
+        for (int i = 0; i < 10000; i++)
+            myLinkedList.remove();
+        double endMLL = System.nanoTime();
+        double totalMLL = (endMLL - startMLL) / 1_000_000_000;
+        System.out.println(totalLL);
+        System.out.println(totalMLL);
+        System.out.println(Arrays.toString(myLinkedList.toArray()));
     }
 
 
-}
+    }
+

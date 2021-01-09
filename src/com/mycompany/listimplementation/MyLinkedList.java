@@ -46,6 +46,41 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         N++;
     }
 
+    public E remove() {
+        Node<E> current = first;
+
+        if (first.getNextNode() == null) {
+            last = null;
+        }
+            first = first.getNextNode();
+            N--;
+            return current.getElement();
+    }
+
+    @Override
+    public E remove(int index) {
+        if (index < 0 || index >= N) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> current = first;
+        Node<E> previous = first;
+        while (current.getElement() != get(index)) {
+            if (current.getNextNode() == null) {
+                return null;
+            } else {
+                previous = current;
+                current = current.getNextNode();
+            }
+        }
+        if (current == first) {
+            first = first.getNextNode();
+        } else {
+            previous.setNextNode(current.getNextNode());
+        }
+        N --;
+        return current.getElement();
+    }
+
     @Override
     public void clear() {
         for (Node<E> x = first; x != null; ) {
@@ -86,30 +121,6 @@ public class MyLinkedList<E> implements ILinkedList<E> {
             }
         }
         return -1;
-    }
-
-    @Override
-    public E remove(int index) {
-        if (index < 0 || index >= N) {
-            throw new IndexOutOfBoundsException();
-        }
-        Node<E> current = first;
-        Node<E> previous = first;
-        while (current.getElement() != get(index)) {
-            if (current.getNextNode() == null) {
-                return null;
-            } else {
-                previous = current;
-                current = current.getNextNode();
-            }
-        }
-        if (current == first) {
-            first = first.getNextNode();
-        } else {
-            previous.setNextNode(current.getNextNode());
-        }
-        N --;
-        return current.getElement();
     }
 
     @Override
