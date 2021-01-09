@@ -1,11 +1,36 @@
 ##1. Сравнение производительности своей коллекции и Java реализации
 Количество элементов в коллекции 10000.
 1. добавление элемента  
-MyLinkedList - 0.0159254 s  
-java.util.LinkedList - 0.008267 s
+MyLinkedList - 15.9254 ms  
+java.util.LinkedList - 8.267 ms
 2. поиск элемента  
-MyLinkedList - 0.0902503 s  
-java.util.LinkedList - 0.0492048 s
+MyLinkedList - 90.2503 ms  
+java.util.LinkedList - 49.2048 ms
 3. удалание элемента  
-MyLinkedList - 0.000823 s  
-java.util.LinkedList - 0.0005115 s
+MyLinkedList - 0.823 ms  
+java.util.LinkedList - 0.5115 ms
+##2. Сравнительный анализ производительности основных Java коллекций.
+a.  **ArrayList**   
+add 10.2037 ms  
+get 11.0241 ms  
+remove 244.5199 ms  
+**LinkedList**  
+add 7.8107 ms  
+get 7.1260186 s  
+remove 0.0018 ms  
+Время вставки элемента в конец списка ArrayList является постоянным. К элементу с произвольным индексом можно обратиться за постоянное время. Недостатки ArrayList проявляются при вставке/удалении элемента в середине списка.  
+LinkedList наоборот, за постоянное время может выполнять вставку/удаление элементов в списке. Доступ к произвольному элементу осуществляется за линейное время.  
+b. **HashSet**  
+add 1.8703 ms  
+contains 3.525 ms  
+remove 16.8751 ms  
+**LinkedHashSet**  
+add 2.7013 ms  
+contains 2.6304 ms  
+remove 1.8978 ms  
+**TreeSet**  
+add 13.2627 ms  
+contains 7.9178 ms  
+remove 26.0309 ms  
+
+
