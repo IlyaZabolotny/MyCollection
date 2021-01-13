@@ -142,13 +142,19 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
     @Override
-    public E[] toArray() {
-        Object[] result = new Object[N];
-        E[] resultT = (E[]) result;
+    public E[] toArray(E[] a) {
+        if (a.length < N)
+            a = (E[])java.lang.reflect.Array.newInstance(
+                    a.getClass().getComponentType(), N);
         int i = 0;
+        Object[] result = a;
         for (Node<E> x = first; x != null; x = x.getNextNode())
-            resultT[i++] = x.getElement();
-        return resultT;
+            result[i++] = x.getElement();
+
+        if (a.length > N)
+            a[N] = null;
+
+        return a;
     }
 
     @Override
