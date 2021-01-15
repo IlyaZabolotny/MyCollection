@@ -12,13 +12,25 @@ java.util.LinkedList - 0.5115 ms
 ## 2. Сравнительный анализ производительности основных Java коллекций  
 Количество элементов в коллекции 100000.  
 a.  **ArrayList**   
-add 10.2037 ms  
-get 11.0241 ms  
-remove 244.5199 ms  
+add elements 40.9961 ms  
+get elements from begin 4.6591 ms  
+get elements from middle 6.6424 ms  
+get elements from end 0.1132 ms  
+insert elements to begin 1548.878 ms  
+insert elements to middle 674.3348 ms  
+remove elements from begin 1517.0051 ms  
+remove elements from middle 64.6767 ms  
+remove elements from end 6.6444 ms   
 **LinkedList**  
-add 7.8107 ms  
-get 7.1260186 s  
-remove 0.0018 ms  
+add elements 33.4178 ms  
+get elements from begin 4.2719 ms  
+get elements from middle 27821.0484 ms  
+get elements from end 0.3473 ms  
+insert elements to begin 11.3699 ms  
+insert elements to middle 130608.5292 ms  
+remove elements from begin 6.4497 ms  
+remove elements from middle 130158.6755 ms  
+remove elements from end 7.9742 ms   
 b. **HashSet**  
 add 20.2832 ms  
 contains 23.8526 ms  
@@ -45,9 +57,8 @@ contains 43.7455 ms
 remove 100.8071 ms  
 ### Вывод:  
 ArrayList и LinkedList - упорядоченные списки. ArrayList - индексированный список, базирующийся на массиве. 
-Linked List - связанный список. Время вставки элемента в конец списка ArrayList является постоянным. 
-К элементу с произвольным индексом можно обратиться за постоянное время. Недостатки ArrayList проявляются при вставке/удалении элемента в середине списка.  
-LinkedList наоборот, за постоянное время может выполнять вставку/удаление элементов в списке. Доступ к произвольному элементу осуществляется за линейное время.  
+LinkedList - связанный список. Из полученных данных следует, что LinkedList следует использовать, когда необходимо вставлять много данных в начало списка и удалять первые элементы из списка.
+ArrayList  - когда необходимо получить элементы по индексу get, удалять элементы из конца и середины списка.
 Set - множество уникальных элементов. HashSet (использует HashMap) удобно использовать, когда необходимо хранить элементы без дублирования. Порядок элементов не важен. 
 В LinkedHashSet (использует LinkedHashMap) порядок элементов соответствует последовательности добавления в коллекцию. TreeSet (использует TreeMap) необходим, если нужно хранить элементы в порядке возрастания.
 Операции add, contains и remove в HashSet выполняются за O(1). LinkedHashSet хуже в производительности за счет сохранения порядка вставки элементов, использования связанного списка. 

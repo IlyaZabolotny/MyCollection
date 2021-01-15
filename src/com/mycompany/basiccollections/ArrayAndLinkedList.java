@@ -11,51 +11,93 @@ public class ArrayAndLinkedList {
     static final int nano = 1_000_000_000;
 
     public static void main(String[] args) {
-        List<Integer> arrayList = new ArrayList<>();
-        List<Integer> linkedList = new LinkedList<>();
-        Random random = new Random();
+        List<String> arrayList = new ArrayList<>();
+        List<String> linkedList = new LinkedList<>();
 
-        double arrAddStart = System.nanoTime();
+        System.out.println("Add elements, ArrayList: " + addTime(arrayList)
+                + " LinkedList: " + addTime(linkedList));
+
+        System.out.println("Get elements from begin, ArrayList: " + searchTime(arrayList, 1)
+                + " LinkedList: " + searchTime(linkedList, 1));
+
+        System.out.println("Get elements from middle, ArrayList: " + searchTime(arrayList, collectionSize / 2)
+                + " LinkedList: " + searchTime(linkedList, collectionSize / 2));
+
+        System.out.println("Get elements from end, ArrayList: " + searchTime(arrayList, collectionSize - 1)
+                + " LinkedList: " + searchTime(linkedList, collectionSize - 1));
+
+        System.out.println("Insert elements to begin, ArrayList: " + insertTimeBegin(arrayList)
+                + " LinkedList: " + insertTimeBegin(linkedList));
+
+        System.out.println("Remove elements from begin, ArrayList: " + removeTimeBegin(arrayList)
+                + " LinkedList: " + removeTimeBegin(linkedList));
+
+        System.out.println("Insert elements to middle, ArrayList: " + insertTime(arrayList, 2)
+                + " LinkedList: " + insertTime(linkedList, 2));
+
+        System.out.println("Remove elements from middle, ArrayList: " + removeTime(arrayList, 2)
+                + " LinkedList: " + removeTime(linkedList, 2));
+
+        System.out.println("Insert elements to end, ArrayList: " + insertTime(arrayList, 1)
+                + " LinkedList: " + insertTime(linkedList, 1));
+
+        System.out.println("Remove elements from end, ArrayList: " + removeTime(arrayList, 1)
+                + " LinkedList: " + removeTime(linkedList, 1));
+    }
+
+    static double addTime(List list) {
+        double start = System.nanoTime();
         for (int i = 0; i < collectionSize; i++) {
-            arrayList.add(i);
+            list.add("new element " + i);
         }
-        double arrAddEnd = System.nanoTime();
+        double finish = System.nanoTime();
+        return (finish - start) / nano;
+    }
 
-        double linkAddStart = System.nanoTime();
+    static double searchTime(List list, int index) {
+        double start = System.nanoTime();
         for (int i = 0; i < collectionSize; i++) {
-            linkedList.add(i);
+            list.get(index);
         }
-        double linkAddEnd = System.nanoTime();
+        double finish = System.nanoTime();
+        return (finish - start) / nano;
+    }
 
-        double arrGetStart = System.nanoTime();
+    static double insertTimeBegin(List list) {
+        double start = System.nanoTime();
         for (int i = 0; i < collectionSize; i++) {
-            arrayList.get(random.nextInt(arrayList.size()));
+            list.add(0, "new element" + i);
         }
-        double arrGetEnd = System.nanoTime();
+        double finish = System.nanoTime();
+        return (finish - start) / nano;
+    }
 
-        double linkGetStart = System.nanoTime();
+    static double insertTime(List list, int coef) {
+        double start = System.nanoTime();
         for (int i = 0; i < collectionSize; i++) {
-            linkedList.get(random.nextInt(arrayList.size()));
+            list.add(list.size() / coef - 1, "new element" + i);
         }
-        double linkGetEnd = System.nanoTime();
+        double finish = System.nanoTime();
+        return (finish - start) / nano;
+    }
 
-        double arrRemStart = System.nanoTime();
-        while (arrayList.size() > 0) {
-            arrayList.remove(random.nextInt(arrayList.size()));
+    static double removeTimeBegin(List list) {
+        double start = System.nanoTime();
+        while (list.size() > collectionSize) {
+            list.remove(0);
         }
-        double arrRemEnd = System.nanoTime();
+        double finish = System.nanoTime();
 
-        double linkRemStart = System.nanoTime();
-        while (arrayList.size() > 0) {
-            linkedList.remove(random.nextInt(arrayList.size()));
+        return (finish - start) / nano;
+    }
+
+    static double removeTime(List list, int coef) {
+        double start = System.nanoTime();
+        while (list.size() > collectionSize) {
+            list.remove(list.size() / coef - 1);
         }
-        double linkRemEnd = System.nanoTime();
+        double finish = System.nanoTime();
 
-        System.out.println("Add, ArrayList: " + (arrAddEnd - arrAddStart) / nano
-                + " LinkedList: " + (linkAddEnd - linkAddStart) / nano);
-        System.out.println("Get, ArrayList: " + (arrGetEnd - arrGetStart) / nano
-                + " LinkedList: " + (linkGetEnd - linkGetStart) / nano);
-        System.out.println("Remove, ArrayList: " + (arrRemEnd - arrRemStart) / nano
-                + " LinkedList: " + (linkRemEnd - linkRemStart) / nano);
+        return (finish - start) / nano;
     }
 }
